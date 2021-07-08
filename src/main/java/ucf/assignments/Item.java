@@ -5,17 +5,21 @@
 
 package ucf.assignments;
 
+
 public class Item {
 
     private String description;
     private String dueDate;
-    private boolean isComplete;
 
+    public String complete;
 
-    public Item(String description, String dueDate, boolean isComplete) {
+    String name;
+
+    public Item(String name, String description, String dueDate, String isComplete) {
+        this.name = name;
         this.description = description;
         this.dueDate = dueDate; // format as shared
-        this.isComplete = isComplete;
+        this.complete = isComplete;
     }
 
     //getter method for item description
@@ -23,9 +27,9 @@ public class Item {
         return description;
     }
 
-
+    //setter method for item description using "this."
     public void setDescription(String description) {
-        //setter method for item description using "this."
+        this.description = description;
     }
 
     //getter method for due date
@@ -33,16 +37,28 @@ public class Item {
         return dueDate;
     }
 
+    //setter method for due date using "this."
     public void setDueDate(String dueDate) {
-        //setter method for due date using "this."
+        this.dueDate = dueDate;
     }
 
-    //getter method for isComplete
-    public boolean isComplete() {
-        return isComplete;
+    //getter method complete
+    public String isComplete() {
+        return complete;
     }
 
-    public void setComplete(boolean complete) {
-        //set isComplete equal to complete
+    //setter method for complete
+    public void setComplete(String complete) {
+        this.complete = complete;
+    }
+
+    //getter method for name
+    public String getName(String name) {
+        return name;
+    }
+
+    //setter method for name
+    public void setName(String name) {
+        this.name = name;
     }
 }
