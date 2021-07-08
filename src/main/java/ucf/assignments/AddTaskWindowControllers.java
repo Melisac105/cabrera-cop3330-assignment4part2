@@ -7,14 +7,25 @@ package ucf.assignments;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 
-public class ListWindowControllers {
+public class AddTaskWindowControllers {
 
-    public TextField listName;
-    public TextField taskName;
-    public TextField taskDescription;
+    @FXML
+    DatePicker datePicker;
+
+    @FXML
+    TextField taskName;
+
+    @FXML
+    TextArea desc;
+
+    @FXML
+    Button submit;
 
 
     @FXML
@@ -95,5 +106,8 @@ public class ListWindowControllers {
         //this method will be called when user click save all
         //all items of a single todolist will be get
         //all items of todolist will be written to a file
+    }
+
+    public void submitTask(ActionEvent actionEvent) {
     }
 }

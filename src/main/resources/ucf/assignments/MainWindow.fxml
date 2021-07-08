@@ -43,7 +43,7 @@
                   <Image url="@../../../../../../../Downloads/file_upload-black-ios/outline_file_upload_black_48pt.xcassets/outline_file_upload_black_48pt.imageset/outline_file_upload_black_48pt_3x.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="69.0" fitWidth="25.0" layoutX="555.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="minusButton" fitHeight="69.0" fitWidth="25.0" layoutX="555.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../../../Downloads/remove_circle-black-ios/outline_remove_circle_black_48pt.xcassets/outline_remove_circle_black_48pt.imageset/outline_remove_circle_black_48pt_3x.png" />
                </image>

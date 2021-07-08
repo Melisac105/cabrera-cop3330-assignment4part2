@@ -9,14 +9,31 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class MainWindowControllers {
-    public TextField listName;
+public class MainWindowControllers implements Initializable{
+
+    @FXML
+    TableView<Item> tableView;
+    @FXML
+    TableColumn<Item,String> taskName;
+    @FXML
+    TableColumn<Item, String> desc;
+    @FXML
+    TableColumn<Item, String> dueDate;
+    @FXML
+    TableColumn<Item, String> complete;
+
+    @FXML
+    ImageView addButton;
+    @FXML
+    ImageView minusButton;
+
 
     @FXML
     public void addListButtonClicked(ActionEvent actionEvent) {
@@ -79,5 +96,8 @@ public class MainWindowControllers {
     }
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
+    }
 }
