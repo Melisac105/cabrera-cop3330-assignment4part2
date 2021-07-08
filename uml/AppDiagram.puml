@@ -1,0 +1,81 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+class ToDoListApp {
+    + main()
+    + start()
+}
+
+class MainWindowControllers {
+    + listName : TextField
+
+    + addListButtonClicked()
+    + deleteListButtonClicked()
+    + uploadListsButtonClicked()
+    + downloadAllListsButtonClicked()
+    + addNewToDoList()
+    + removeToDoList()
+    + saveAllToDoLists()
+    + loadSingleToDoList()
+    + loadMultipleToDoLists()
+}
+
+class ListWindowControllers {
+    + listName : TextField
+    + taskName : TextField
+    + taskDescription : TextField
+
+    + showAllButtonClicked()
+    + showCompleteItemsButtonClicked()
+    + showIncompleteItemsButtonClicked()
+    + downloadSingleListButtonClicked()
+    + addItemButtonClicked()
+    + doneButtonClicked()
+    + deleteItemButtonClicked()
+    + displayAllItems()
+    + displayIncompleteItems()
+    + displayCompleteItems()
+    + saveAllItemsSingleToDoList()
+}
+
+class Item {
+    - description : String
+    - dueDate : String
+    - isComplete : boolean
+
+    + getDescription()
+    + setDescription()
+    + getDueDate()
+    + setDueDate()
+    + isComplete()
+    + setComplete()
+}
+
+class ToDoList {
+    - title : String
+    - capacity : int
+    + count : int
+    + items : ArrayList<>
+
+    + toDoList()
+    + getTitle()
+    + getCapacity()
+    + setTitle()
+    + setCapacity()
+    + editTitle()
+    + addItem()
+    + removeItem()
+    + editDescription()
+    + editDueDate()
+    + markAnItemComplete()
+    + getItems()
+}
+
+javafx.Application <|-- ToDoListApp
+
+ToDoListApp <-- ListWindowControllers
+ToDoListApp <- MainWindowControllers
+ToDoList <- Item
+ListWindowControllers <-- ToDoList
+
+@enduml

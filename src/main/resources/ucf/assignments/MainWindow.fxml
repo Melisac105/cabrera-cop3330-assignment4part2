@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6f79a8;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.MainWindowControllers">
+   <children>
+      <Label layoutX="14.0" layoutY="8.0" text="To Do Lists" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <AnchorPane focusTraversable="true" layoutY="51.0" prefHeight="352.0" prefWidth="606.0" style="-fx-background-color: #ede7f6;">
+         <children>
+            <TextField fx:id="listName" layoutX="14.0" layoutY="14.0" promptText="List Name" style="-fx-border-color: #ffffff00#ffffff00;" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Button layoutX="145.0" layoutY="11.0" mnemonicParsing="false" onAction="#deleteListButtonClicked" style="-fx-background-color: #ffffff00;" visible="false">
+               <graphic>
+                  <ImageView fitHeight="19.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../Downloads/delete-black-ios/outline_delete_black_72pt.xcassets/outline_delete_black_72pt.imageset/outline_delete_black_72pt_3x.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="addListButton" layoutX="537.0" layoutY="313.0" mnemonicParsing="false" onAction="#addListButtonClicked" style="-fx-background-color: #ffffff00;">
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../Downloads/add_circle-black-ios/outline_add_circle_black_48pt.xcassets/outline_add_circle_black_48pt.imageset/outline_add_circle_black_48pt_3x.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+         </children>
+      </AnchorPane>
+      <SplitMenuButton layoutX="502.0" layoutY="12.0" mnemonicParsing="false" text="Options">
+         <items>
+          <MenuItem mnemonicParsing="false" onAction="#uploadListsButtonClicked" text="Upload " />
+          <MenuItem mnemonicParsing="false" onAction="#downloadAllListsButtonClicked" text="Download All " />
+         </items>
+      </SplitMenuButton>
+   </children>
+</AnchorPane>
