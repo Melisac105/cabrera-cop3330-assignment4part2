@@ -32,7 +32,7 @@ class ListWindowControllers {
     + addItemButtonClicked()
     + doneButtonClicked()
     + deleteItemButtonClicked()
-    + displayAllItems()
+    + displayAllItems()Up
     + displayIncompleteItems()
     + displayCompleteItems()
     + saveAllItemsSingleToDoList()
