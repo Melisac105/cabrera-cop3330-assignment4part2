@@ -13,70 +13,123 @@ public class ToDoList {
     private int capacity;
     int count;
 
-    ArrayList<Item> items;
+    ArrayList<Task> tasks;
 
 
     public ToDoList(String title, int capacity) {
         //set instance variables (title, capacity)
         this.title = title;
         this.capacity = capacity;
-        //initialize count equal to zero
-        count = 0;
-        //initialize items equal to a new ArrayList
-        items = new ArrayList<Item>();
+        count = 0; //initialize count equal to zero
+        tasks = new ArrayList<>(); //initialize items equal to a new ArrayList
     }
 
-    //this method returns the title of the todolist
     public String getTitle() {
-        return title;
+        return title; //returns the title of the todolist
     }
 
     public void setTitle(String title) {
-        //set new title of the todolist using "this."
+        this.title = title; //set new title of the todolist using "this."
     }
 
-    //this method return the capacity of the todolist
-    public int getCapacity() {
-        return capacity;
+    public int getRemainingCapacity() {
+        return capacity - count; //return the remaining capacity of the todolist
     }
 
     public void setCapacity(int capacity) {
-        //setter method for capacity using "this."
+        this.capacity = capacity; //setter method for capacity using "this."
     }
 
     public void editTitle(String newTitle){
-        //edit title using "this.title"
+       this.title = newTitle; //edit title using "this.title"
     }
 
-    public void addItem(Item i){
-        //use .add to add new item in the list
-        //increase count by 1
+    public void addTask(Task i){
+        tasks.add(i); //use .add to add new task in the list
+        count ++; //increase count by 1
     }
 
-    public void removeItem(Item i){
-        //use .remove to delete item in the list
-        //decrease count by 1
+    public void removeTask(Task i){
+        tasks.remove(i); //use .remove to delete item in the list
+        count--; //decrease count by 1
     }
 
-    public void editDescription(Item i, String str){
-        //this method will be passed an item and its new description
-        //this method will update the description of the task provided
+    //this is a getter method for getting tasks inside a todolist
+    public ArrayList<Task> getTasks(){
+        return tasks;
     }
 
-    public void editDueDate(Item i , String str){
-        //this method will be passed an item and its new due date
-        //this method will update the due date of the task provided
+    public void editDescription(Task i, String str){
+        int index;
+        // loop to find if old description is the same as the new one
+        for(index = 0; index < count; index++) {
+            //if descriptions are the same, then break
+            if(i.equals(getTasks().get(index))) {
+                break;
+            }
+        }
+        getTasks().get(index).setDescription(str); //set new description
     }
 
-    public void markAnItemComplete(Item i){
-        //this method will be passed an item
-        //it will mark it complete
-        //by changing boolean value
+    public void editDueDate(Task i , String str){
+        int index;
+        //loop to find if old date is the same as the new one
+        for(index = 0; index<count; index++){
+            //if dates are the same, then break
+            if(i.equals(getTasks().get(index))) {
+                break;
+            }
+        }
+        getTasks().get(index).setDueDate(str); //set new due date
     }
 
-    //this is a getter method for getting items inside a todolist
-    public ArrayList<Item> getItems(){
-        return items;
+    public void updateName(Task i, String str){
+        int index=0;
+        //loop to find if old title is the same as the new one
+        for(index = 0; index<count; index++){
+            //if title are the same, then break
+            if(i.equals(getTasks().get(index))) {
+                break;
+            }
+        }
+        getTasks().get(index).setName(str); //set new title
+    }
+
+    public void markAnItemComplete(Task i, String complete){
+        int index;
+        //loop to find if task status is the same as the new status
+        for(index = 0; index<count; index++){
+            //if status are the same, then break
+            if(i.equals(getTasks().get(index))) {
+                break;
+            }
+        }
+        getTasks().get(index).setComplete(complete); //set status
+    }
+
+    public ArrayList<Task> getCompletedItems(){
+        ArrayList<Task> completed = new ArrayList<>();
+        for(Task i : getTasks()){
+            if(i.isComplete().equals("completed")){
+                completed.add(i);
+            }
+        }
+        return completed;
+    }
+
+    public ArrayList<Task> getIncompleteItems(){
+        ArrayList<Task> incomplete = new ArrayList<>();
+        for(Task i : getTasks()){
+            if(i.isComplete().equals("incomplete")){
+                incomplete.add(i);
+            }
+        }
+        return incomplete;
+    }
+
+    public void clearAll(){
+        tasks = new ArrayList<>();
+        count = 0;
     }
 
 }

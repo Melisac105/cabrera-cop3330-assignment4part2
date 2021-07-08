@@ -85,10 +85,7 @@ public class AddTaskWindowControllers {
         //then the updated list will be shown to user
     }
 
-    public void displayAllItems() {
-        //get items from todolist
-        //display all items to screen
-    }
+
 
     public void displayIncompleteItems() {
         //get items from todolist

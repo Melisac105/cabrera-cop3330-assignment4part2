@@ -30,29 +30,29 @@
             </TableView>
             <ImageView fx:id="addButton" fitHeight="25.0" fitWidth="28.0" layoutX="580.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../Downloads/add_circle-black-ios/outline_add_circle_black_48pt.xcassets/outline_add_circle_black_48pt.imageset/outline_add_circle_black_48pt_3x.png" />
+                  <Image url="@../../../java/ucf/assignments/assets/outline_add_circle_black_48pt_3x.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="37.0" fitWidth="25.0" layoutX="33.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../Downloads/file_download-black-ios/outline_file_download_black_48pt.xcassets/outline_file_download_black_48pt.imageset/outline_file_download_black_48pt_3x.png" />
+                  <Image url="@../../../java/ucf/assignments/assets/outline_file_download_black_48pt_3x.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="2.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../Downloads/file_upload-black-ios/outline_file_upload_black_48pt.xcassets/outline_file_upload_black_48pt.imageset/outline_file_upload_black_48pt_3x.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="minusButton" fitHeight="69.0" fitWidth="25.0" layoutX="555.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../Downloads/remove_circle-black-ios/outline_remove_circle_black_48pt.xcassets/outline_remove_circle_black_48pt.imageset/outline_remove_circle_black_48pt_3x.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="235.0" layoutY="340.0" prefHeight="17.0" prefWidth="136.0" text="Remaining Capacity:" textFill="#111111">
+            <Label fx:id="capacityText" layoutX="235.0" layoutY="340.0" prefHeight="17.0" prefWidth="136.0" text="Remaining Capacity:" textFill="#111111">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="2.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../java/ucf/assignments/assets/outline_file_upload_black_48pt_3x.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="minusButton" fitHeight="69.0" fitWidth="25.0" layoutX="555.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../java/ucf/assignments/assets/outline_remove_circle_black_48pt_3x.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <SplitMenuButton layoutX="206.0" layoutY="14.0" mnemonicParsing="false" text="Options" visible="false">
@@ -64,9 +64,9 @@
       <Button layoutX="456.0" layoutY="14.0" mnemonicParsing="false" text="Clear" />
       <SplitMenuButton layoutX="516.0" layoutY="14.0" mnemonicParsing="false" text="Show">
         <items>
-          <MenuItem mnemonicParsing="false" text="All" />
-          <MenuItem mnemonicParsing="false" text="Complete" />
-            <MenuItem mnemonicParsing="false" text="Incomplete" />
+          <MenuItem fx:id="showAll" mnemonicParsing="false" onAction="#displayAllItems" text="All" />
+          <MenuItem fx:id="showComplete" mnemonicParsing="false" onAction="#displayCompleteTasks" text="Complete" />
+            <MenuItem fx:id="showIncomplete" mnemonicParsing="false" onAction="#displayIncompleteTasks" text="Incomplete" />
         </items>
       </SplitMenuButton>
    </children>

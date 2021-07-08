@@ -6,7 +6,7 @@
 package ucf.assignments;
 
 
-public class Item {
+public class Task {
 
     private String description;
     private String dueDate;
@@ -15,7 +15,7 @@ public class Item {
 
     String name;
 
-    public Item(String name, String description, String dueDate, String isComplete) {
+    public Task(String name, String description, String dueDate, String isComplete) {
         this.name = name;
         this.description = description;
         this.dueDate = dueDate; // format as shared
