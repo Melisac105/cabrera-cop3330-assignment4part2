@@ -6,9 +6,13 @@
 package ucf.assignments;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -16,9 +20,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -149,6 +156,40 @@ public class MainWindowControllers implements Initializable{
 
         addButton.setPickOnBounds(true);
 
+        addButton.setOnMouseClicked(new EventHandler() {
+
+            @Override
+            public void handle(Event event) {
+
+                if (myList.getRemainingCapacity() <= 0) {
+                    JOptionPane.showMessageDialog(null, "The list is full, delete some item");
+                } else {
+
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddTaskWindow.fxml"));
+                    Parent root = null;
+                    try {
+                        root = fxmlLoader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+
+                    Stage stagePrevious = (Stage) addButton.getScene().getWindow();
+                    // do what you have to do
+                    stagePrevious.close();
+                    stage.show();
+                }
+            }
+
+
+
+
+        });
+
+
         taskName.setCellFactory(TextFieldTableCell.forTableColumn());
 
         taskName.setOnEditCommit(
@@ -165,5 +206,87 @@ public class MainWindowControllers implements Initializable{
                     }
                 }
         );
+
+        desc.setCellFactory(TextFieldTableCell.forTableColumn());
+        desc.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Task, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Task, String> t) {
+                        ((Task) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                        ).setDescription(t.getNewValue());
+
+                        Task temp = ((Task) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                        );
+
+                        myList.editDescription(temp, t.getNewValue());
+                    }
+                }
+        );
+
+        dueDate.setCellFactory(TextFieldTableCell.forTableColumn());
+        dueDate.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Task, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Task, String> t) {
+                        ((Task) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                        ).setDueDate(t.getNewValue());
+
+                        Task temp = ((Task) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                        );
+
+                        myList.editDueDate(temp, t.getNewValue());
+                    }
+                }
+        );
+
+        complete.setCellFactory(TextFieldTableCell.forTableColumn());
+        complete.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Task, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Task, String> t) {
+                        ((Task) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                        ).setComplete(t.getNewValue());
+
+                        Task temp = ((Task) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                        );
+
+
+
+                        myList.markAnItemComplete(temp, t.getNewValue());
+                    }
+                }
+        );
+
+
+
+
+
+
+
+
+
+
+//        minusButton.setOnMouseClicked(new EventHandler() {
+//
+//            @Override
+//            public void handle(Event event) {
+//                Task selectedItem = tableView.getSelectionModel().getSelectedItem();
+//                tableView.getItems().remove(selectedItem);
+//                myList.removeItem(selectedItem);
+//
+//                capacityText.setText("Remaining Capacity: "+myList.getRemainingCapacity());
+//
+//            }
+//
+//
+//
+//
+//        });
     }
 }

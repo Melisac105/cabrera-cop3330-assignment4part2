@@ -9,3 +9,7 @@ ucf/assignments/ToDoList.java
 ucf/assignments/MainWindowControllers.java
  ucf.assignments.MainWindowControllers
  ucf.assignments.MainWindowControllers$1
+ ucf.assignments.MainWindowControllers$2
+ ucf.assignments.MainWindowControllers$3
+ ucf.assignments.MainWindowControllers$4
+ ucf.assignments.MainWindowControllers$5

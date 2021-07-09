@@ -11,17 +11,18 @@ public class ToDoList {
 
     private String title;
     private int capacity;
+
     int count;
 
     ArrayList<Task> tasks;
 
 
     public ToDoList(String title, int capacity) {
-        //set instance variables (title, capacity)
+        //initialize all fields
         this.title = title;
         this.capacity = capacity;
         count = 0; //initialize count equal to zero
-        tasks = new ArrayList<>(); //initialize items equal to a new ArrayList
+        tasks = new ArrayList<>(); //make a new list for items
     }
 
     public String getTitle() {
@@ -46,12 +47,12 @@ public class ToDoList {
 
     public void addTask(Task i){
         tasks.add(i); //use .add to add new task in the list
-        count ++; //increase count by 1
+        count ++; //increase counter by 1
     }
 
     public void removeTask(Task i){
         tasks.remove(i); //use .remove to delete item in the list
-        count--; //decrease count by 1
+        count--; //decrease counter by 1
     }
 
     //this is a getter method for getting tasks inside a todolist
@@ -61,75 +62,87 @@ public class ToDoList {
 
     public void editDescription(Task i, String str){
         int index;
-        // loop to find if old description is the same as the new one
+
+        //loop to find task from the list and record the index for passed task
         for(index = 0; index < count; index++) {
             //if descriptions are the same, then break
             if(i.equals(getTasks().get(index))) {
                 break;
             }
         }
-        getTasks().get(index).setDescription(str); //set new description
+        getTasks().get(index).setDescription(str);  //update the passed string as new description
     }
 
     public void editDueDate(Task i , String str){
         int index;
-        //loop to find if old date is the same as the new one
-        for(index = 0; index<count; index++){
+
+        //loop to find task from the list and record the index for passed task
+        for(index = 0; index < count; index++){
             //if dates are the same, then break
             if(i.equals(getTasks().get(index))) {
                 break;
             }
         }
-        getTasks().get(index).setDueDate(str); //set new due date
+        getTasks().get(index).setDueDate(str); //update the passed string as new due date
     }
 
     public void updateName(Task i, String str){
-        int index=0;
-        //loop to find if old title is the same as the new one
-        for(index = 0; index<count; index++){
+        int index;
+
+        //loop to find task from the list and record the index for passed task
+        for(index = 0; index < count; index++){
             //if title are the same, then break
             if(i.equals(getTasks().get(index))) {
                 break;
             }
         }
-        getTasks().get(index).setName(str); //set new title
+        getTasks().get(index).setName(str); //update the passed string as new one
     }
 
     public void markAnItemComplete(Task i, String complete){
         int index;
-        //loop to find if task status is the same as the new status
+
+        //loop to find task from the list and record the index for passed task
         for(index = 0; index<count; index++){
             //if status are the same, then break
             if(i.equals(getTasks().get(index))) {
                 break;
             }
         }
-        getTasks().get(index).setComplete(complete); //set status
+        getTasks().get(index).setComplete(complete); //update the passed string as complete or incomplete
     }
 
     public ArrayList<Task> getCompletedItems(){
-        ArrayList<Task> completed = new ArrayList<>();
+        //get all tasks in list
+        ArrayList<Task> completed = new ArrayList<>(); //make a temp new list
+        //loop for all tasks
         for(Task i : getTasks()){
+            //if complete then add into list
             if(i.isComplete().equals("completed")){
                 completed.add(i);
             }
         }
-        return completed;
+        return completed; //return temp list
     }
 
     public ArrayList<Task> getIncompleteItems(){
-        ArrayList<Task> incomplete = new ArrayList<>();
+        //get all tasks in list
+        ArrayList<Task> incomplete = new ArrayList<>(); //make a temp new list
+        //loop for all tasks
         for(Task i : getTasks()){
+            //if incomplete then add into list
             if(i.isComplete().equals("incomplete")){
                 incomplete.add(i);
             }
         }
-        return incomplete;
+        return incomplete;  //return temp list
     }
 
     public void clearAll(){
+        //make new objects for items
+        //previous all will be deleted
         tasks = new ArrayList<>();
-        count = 0;
+        count = 0; //set counter equal to zero
     }
 
 }
