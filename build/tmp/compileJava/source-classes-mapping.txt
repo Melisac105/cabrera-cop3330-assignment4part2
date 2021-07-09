@@ -1,11 +1,9 @@
 ucf/assignments/ToDoListApp.java
  ucf.assignments.ToDoListApp
-ucf/assignments/AddTaskWindowControllers.java
- ucf.assignments.AddTaskWindowControllers
-ucf/assignments/Task.java
- ucf.assignments.Task
 ucf/assignments/ToDoList.java
  ucf.assignments.ToDoList
+ucf/assignments/Task.java
+ ucf.assignments.Task
 ucf/assignments/MainWindowControllers.java
  ucf.assignments.MainWindowControllers
  ucf.assignments.MainWindowControllers$1
@@ -13,3 +11,6 @@ ucf/assignments/MainWindowControllers.java
  ucf.assignments.MainWindowControllers$3
  ucf.assignments.MainWindowControllers$4
  ucf.assignments.MainWindowControllers$5
+ucf/assignments/AddTaskWindowControllers.java
+ ucf.assignments.AddTaskWindowControllers
+ ucf.assignments.AddTaskWindowControllers$1

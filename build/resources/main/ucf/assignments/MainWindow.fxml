@@ -18,7 +18,7 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <AnchorPane focusTraversable="true" layoutY="51.0" prefHeight="352.0" prefWidth="606.0" style="-fx-background-color: #ffe0b2#ffe0b2;">
+      <AnchorPane focusTraversable="true" layoutY="51.0" prefHeight="368.0" prefWidth="604.0" style="-fx-background-color: #ffe0b2#ffe0b2;">
          <children>
             <TableView fx:id="tableView" editable="true" prefHeight="336.0" prefWidth="606.0" style="-fx-background-color: #ffffe4#ffffe4;">
                <columns>
@@ -35,7 +35,7 @@
             </ImageView>
             <ImageView fx:id="downloadList" fitHeight="37.0" fitWidth="25.0" layoutX="33.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../java/ucf/assignments/assets/outline_file_download_black_48pt_3x.png" />
+                  <Image url="@../../../java/ucf/assignments/assets/file_download-black-ios/outline_file_download_black_48pt.xcassets/outline_file_download_black_48pt.imageset/outline_file_download_black_48pt_3x.png" />
                </image>
             </ImageView>
             <Label fx:id="capacityText" layoutX="235.0" layoutY="340.0" prefHeight="17.0" prefWidth="136.0" text="Remaining Capacity:" textFill="#111111">
@@ -45,12 +45,12 @@
             </Label>
             <ImageView fx:id="uploadList" fitHeight="25.0" fitWidth="25.0" layoutX="2.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../java/ucf/assignments/assets/outline_file_upload_black_48pt_3x.png" />
+                  <Image url="@../../../java/ucf/assignments/assets/file_upload-black-ios/outline_file_upload_black_48pt.xcassets/outline_file_upload_black_48pt.imageset/outline_file_upload_black_48pt_3x.png" />
                </image>
             </ImageView>
             <ImageView fx:id="minusButton" fitHeight="69.0" fitWidth="25.0" layoutX="555.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../java/ucf/assignments/assets/outline_remove_circle_black_48pt_3x.png" />
+                  <Image url="@../../../java/ucf/assignments/assets/remove_circle-black-ios/outline_remove_circle_black_48pt.xcassets/outline_remove_circle_black_48pt.imageset/outline_remove_circle_black_48pt_3x.png" />
                </image>
             </ImageView>
          </children>
