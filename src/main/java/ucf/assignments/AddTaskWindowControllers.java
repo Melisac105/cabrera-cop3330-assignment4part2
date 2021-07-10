@@ -40,7 +40,8 @@ public class AddTaskWindowControllers implements Initializable {
     @FXML
     Button submit;
 
-    public void submitTask(ActionEvent actionEvent) {
+    @FXML
+    public void submitTask() {
         String name = taskName.getText();
         LocalDate datePicked = datePicker.getValue();
         String dueDate = datePicked.toString();
@@ -81,7 +82,7 @@ public class AddTaskWindowControllers implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
             datePicker.setConverter(new StringConverter<>() {
-                final private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("YYYY-MM-dd");
+                final private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
                 public String toString(LocalDate localDate) {
                     if (localDate == null) {

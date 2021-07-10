@@ -22,7 +22,7 @@ public class ToDoList {
         this.title = title;
         this.capacity = capacity;
         count = 0; //initialize count equal to zero
-        tasks = new ArrayList<Task>(); //make a new list for items
+        tasks = new ArrayList<>(); //make a new list for items
     }
 
     public String getTitle() {

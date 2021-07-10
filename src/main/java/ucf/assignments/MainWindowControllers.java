@@ -5,7 +5,6 @@
 
 package ucf.assignments;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,12 +16,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.swing.*;
 
-import java.awt.datatransfer.SystemFlavorMap;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -38,10 +37,10 @@ public class MainWindowControllers implements Initializable{
     private static ToDoList myList;
 
     @FXML
-    Button downloadList;
+    ImageView downloadList;
 
     @FXML
-    Button uploadList;
+    ImageView uploadList;
 
     @FXML
     TableView<Task> tableView;
@@ -87,56 +86,6 @@ public class MainWindowControllers implements Initializable{
         tableView.getItems().setAll(incomplete); //show incomplete tasks
     }
 
-    public void downloadAllTasks(ActionEvent actionEvent) {
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("Choose a folder to save file");
-        File file = directoryChooser.showDialog(null);
-        System.out.println(file);
-        try{
-            FileWriter writeFile = new FileWriter(file.toString()+"\\todolistdownloaded.txt");
-            for(Task i : myList.getTasks()){
-
-                writeFile.write(i.toString()+"\r\n");
-            }
-
-            writeFile.close();
-
-            JOptionPane.showMessageDialog(null, "This list has been saved in your folder");
-        }
-
-        catch(Exception e){
-
-        }
-    }
-
-
-    public void loadSingleToDoList() throws FileNotFoundException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        File selectedFile = fileChooser.showOpenDialog(null);
-
-        if(selectedFile!=null){
-            myList.clearAll();
-            Scanner fileScanner = new Scanner(selectedFile);
-            while(fileScanner.hasNext()){
-                String line = fileScanner.nextLine();
-                String[] lineParts = line.split(",");
-
-
-
-
-                myList.addTask(new Task(lineParts[0],lineParts[1],lineParts[2],lineParts[3]));
-
-            }
-
-            tableView.getItems().setAll(myList.getTasks());
-            capacityText.setText("Remaining Capacity: "+myList.getRemainingCapacity());
-
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Invalid File OR File not chosen");
-        }
-    }
 
     @FXML
     public void clearAll(){
@@ -165,19 +114,18 @@ public class MainWindowControllers implements Initializable{
                 myList.addTask(new Task(lineParts[0],lineParts[1],lineParts[2],lineParts[3]));
             }
         } catch(Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
 
-        taskName.setCellValueFactory(new PropertyValueFactory<Task, String>("name"));
-        desc.setCellValueFactory(new PropertyValueFactory<Task, String>("description"));
-        dueDate.setCellValueFactory(new PropertyValueFactory<Task, String>("dueDate"));
-        complete.setCellValueFactory(new PropertyValueFactory<Task, String>("complete"));
+        taskName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        desc.setCellValueFactory(new PropertyValueFactory<>("description"));
+        dueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
+        complete.setCellValueFactory(new PropertyValueFactory<>("complete"));
 
         tableView.getItems().setAll(myList.getTasks());
 
-        capacityText.setText("Remaining Capacity: "+myList.getRemainingCapacity());
+        capacityText.setText("Remaining Capacity: "+ myList.getRemainingCapacity());
 
-        addButton.setPickOnBounds(true);
 
 
         taskName.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -254,70 +202,217 @@ public class MainWindowControllers implements Initializable{
 
 
 
+//
+//        addButton.setOnMouseClicked(new EventHandler() {
+//
+//            //this is an event on add button
+//            //open a new window when add button is clciked
+//
+//
+//
+//            @Override
+//            public void handle(Event event) {
 
-        addButton.setOnMouseClicked(new EventHandler() {
+//                if (myList.getRemainingCapacity() <= 0) {
+//                    JOptionPane.showMessageDialog(null, "The list is full, delete some item");
+//                } else {
+//
+//
+//                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddTaskWindow.fxml"));
+//                    Parent root = null;
+//                    try {
+//                        root = fxmlLoader.load();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    Scene scene = new Scene(root);
+//                    Stage stage = new Stage();
+//                    stage.setScene(scene);
+//
+//                    Stage stagePrevious = (Stage) addButton.getScene().getWindow();
+//                    // do what you have to do
+//                    stagePrevious.close();
+//                    stage.show();
+//                }
+//            }
+//
+//
+//
 
-            //this is an event on add button
-            //open a new window when add button is clciked
+//        });
+//
+//        minusButton.setOnMouseClicked(new EventHandler() {
+//
+//
+//            //this is an event on minus button
+//            //delete the selected item whenever it is clicked
+//
+//            @Override
+//            public void handle(Event event) {
+//                Task selectedItem = tableView.getSelectionModel().getSelectedItem();
+//                tableView.getItems().remove(selectedItem);
+//                myList.removeTask(selectedItem);
+//
+//                capacityText.setText("Remaining Capacity: "+myList.getRemainingCapacity());
+//
+//            }
+//
+//
+//
+//
+//        });
+//
+//        downloadList.setOnMouseClicked(new EventHandler() {
+//
+//            @Override
+//            public void handle(Event event) {
+//                DirectoryChooser directoryChooser = new DirectoryChooser();
+//                directoryChooser.setTitle("Choose a folder to save file");
+//                File file = directoryChooser.showDialog(null);
+//                System.out.println(file);
+//                try{
+//                    FileWriter writeFile = new FileWriter(file.toString()+"\\ListDownloaded.txt");
+//                    for(Task i : myList.getTasks()){
+//                        writeFile.write(i.toString()+"\r\n");
+//                    }
+//
+//                    writeFile.close();
+//
+//                    JOptionPane.showMessageDialog(null, "This list has been saved in your folder");
+//                }
+//
+//                catch(Exception e){
+//
+//                }
+//            }
+//        });
+//
+//        uploadList.setOnMouseClicked(new EventHandler() {
+//
+//            @Override
+//            public void handle(Event event) {
+//                FileChooser fileChooser = new FileChooser();
+//                fileChooser.setTitle("Open Resource File");
+//                File selectedFile = fileChooser.showOpenDialog(null);
+//
+//                if (selectedFile != null) {
+//                    myList.clearAll();
+//                    Scanner fileScanner = null;
+//                    try {
+//                        fileScanner = new Scanner(selectedFile);
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
+//                    while (fileScanner.hasNext()) {
+//                        String line = fileScanner.nextLine();
+//                        String[] lineParts = line.split(",");
+//
+//
+//                        myList.addTask(new Task(lineParts[0], lineParts[1], lineParts[2], lineParts[3]));
+//
+//                    }
+//
+//                    tableView.getItems().setAll(myList.getTasks());
+//                    capacityText.setText("Remaining Capacity: " + myList.getRemainingCapacity());
+//
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "Invalid File OR File not chosen");
+//                }
+//            }
+//        });
 
 
-
-            @Override
-            public void handle(Event event) {
-
-                if (myList.getRemainingCapacity() <= 0) {
-                    JOptionPane.showMessageDialog(null, "The list is full, delete some item");
-                } else {
-
-
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddTaskWindow.fxml"));
-                    Parent root = null;
-                    try {
-                        root = fxmlLoader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Scene scene = new Scene(root);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-
-                    Stage stagePrevious = (Stage) addButton.getScene().getWindow();
-                    // do what you have to do
-                    stagePrevious.close();
-                    stage.show();
-                }
-            }
-
-
-
-
-        });
-
-        minusButton.setOnMouseClicked(new EventHandler() {
-
-
-            //this is an event on minus button
-            //delete the selected item whenever it is clicked
-
-            @Override
-            public void handle(Event event) {
-                Task selectedItem = tableView.getSelectionModel().getSelectedItem();
-                tableView.getItems().remove(selectedItem);
-                myList.removeTask(selectedItem);
-
-                capacityText.setText("Remaining Capacity: "+myList.getRemainingCapacity());
-
-            }
-
-
-
-
-        });
     }
 
     public static ArrayList<Task> allTasks(){
         return myList.getTasks();
     }
 
+    @FXML
+    public void addButtonClicked() {
+            if (myList.getRemainingCapacity() <= 0) {
+                JOptionPane.showMessageDialog(null, "The list is full, delete some item");
+            } else {
 
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddTaskWindow.fxml"));
+                Parent root = null;
+                try {
+                    root = fxmlLoader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+
+                Stage stagePrevious = (Stage) addButton.getScene().getWindow();
+                // do what you have to do
+                stagePrevious.close();
+                stage.show();
+            }
+    }
+
+    @FXML
+    public void minusButtonClicked() {
+        Task selectedItem = tableView.getSelectionModel().getSelectedItem();
+        tableView.getItems().remove(selectedItem);
+        myList.removeTask(selectedItem);
+
+        capacityText.setText("Remaining Capacity: "+myList.getRemainingCapacity());
+
+    }
+
+    @FXML
+    public void downloadListClicked() {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Choose a folder to save file");
+        File file = directoryChooser.showDialog(null);
+        System.out.println(file);
+        try{
+            FileWriter writeFile = new FileWriter(file.toString()+"\\ListDownloaded.txt");
+            for(Task i : myList.getTasks()){
+                writeFile.write(i.toString()+"\r\n");
+            }
+
+            writeFile.close();
+
+            JOptionPane.showMessageDialog(null, "This list has been saved in your folder");
+        }
+
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void uploadListClicked() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            myList.clearAll();
+            Scanner fileScanner = null;
+            try {
+                fileScanner = new Scanner(selectedFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            while (fileScanner.hasNext()) {
+                String line = fileScanner.nextLine();
+                String[] lineParts = line.split(",");
+
+
+                myList.addTask(new Task(lineParts[0], lineParts[1], lineParts[2], lineParts[3]));
+
+            }
+
+            tableView.getItems().setAll(myList.getTasks());
+            capacityText.setText("Remaining Capacity: " + myList.getRemainingCapacity());
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid File OR File not chosen");
+        }
+    }
 }
