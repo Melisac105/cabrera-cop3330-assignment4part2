@@ -42,9 +42,7 @@ public class AddTaskWindowControllers implements Initializable {
 
     public void submitTask(ActionEvent actionEvent) {
         String name = taskName.getText();
-
         LocalDate datePicked = datePicker.getValue();
-
         String dueDate = datePicked.toString();
         String description = desc.getText();
 
@@ -53,7 +51,7 @@ public class AddTaskWindowControllers implements Initializable {
         MainWindowControllers.allTasks().add(newTask);
 
         try{
-            FileWriter writeFile = new FileWriter("src/sample/data.txt");
+            FileWriter writeFile = new FileWriter("list.txt");
             for(Task i : MainWindowControllers.allTasks()) {
                 writeFile.write(i.toString()+"\r\n");
             }
@@ -83,7 +81,7 @@ public class AddTaskWindowControllers implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
             datePicker.setConverter(new StringConverter<>() {
-                final private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                final private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("YYYY-MM-dd");
 
                 public String toString(LocalDate localDate) {
                     if (localDate == null) {

@@ -22,7 +22,7 @@ public class ToDoList {
         this.title = title;
         this.capacity = capacity;
         count = 0; //initialize count equal to zero
-        tasks = new ArrayList<>(); //make a new list for items
+        tasks = new ArrayList<Task>(); //make a new list for items
     }
 
     public String getTitle() {
@@ -118,7 +118,7 @@ public class ToDoList {
         //loop for all tasks
         for(Task i : getTasks()){
             //if complete then add into list
-            if(i.isComplete().equals("completed")){
+            if(i.isComplete().equals("complete")){
                 completed.add(i);
             }
         }
@@ -144,5 +144,4 @@ public class ToDoList {
         tasks = new ArrayList<>();
         count = 0; //set counter equal to zero
     }
-
 }

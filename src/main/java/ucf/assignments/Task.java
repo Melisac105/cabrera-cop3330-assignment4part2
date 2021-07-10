@@ -53,7 +53,7 @@ public class Task {
     }
 
     //getter method for name
-    public String getName(String name) {
+    public String getName() {
         return name;
     }
 
@@ -61,4 +61,9 @@ public class Task {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String toString(){
+        return this.name+","+this.description+","+this.dueDate+","+this.complete;
+    }
+
 }

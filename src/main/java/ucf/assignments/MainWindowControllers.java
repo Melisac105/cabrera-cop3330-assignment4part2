@@ -13,18 +13,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.swing.*;
 
+import java.awt.datatransfer.SystemFlavorMap;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,6 +36,12 @@ import java.util.Scanner;
 public class MainWindowControllers implements Initializable{
 
     private static ToDoList myList;
+
+    @FXML
+    Button downloadList;
+
+    @FXML
+    Button uploadList;
 
     @FXML
     TableView<Task> tableView;
@@ -62,10 +69,6 @@ public class MainWindowControllers implements Initializable{
     @FXML
     MenuItem showIncomplete;
 
-    public static ArrayList<Task> allTasks(){
-        return myList.getTasks();
-    }
-
     @FXML
     public void displayAllItems() {
         ArrayList<Task> allTasks = myList.getTasks(); //create array list that get all tasks
@@ -84,39 +87,55 @@ public class MainWindowControllers implements Initializable{
         tableView.getItems().setAll(incomplete); //show incomplete tasks
     }
 
+    public void downloadAllTasks(ActionEvent actionEvent) {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Choose a folder to save file");
+        File file = directoryChooser.showDialog(null);
+        System.out.println(file);
+        try{
+            FileWriter writeFile = new FileWriter(file.toString()+"\\todolistdownloaded.txt");
+            for(Task i : myList.getTasks()){
 
-    @FXML
-    public void uploadListsButtonClicked(ActionEvent actionEvent) {
-        //upon clicking this button a dialog box will appear to select text file
-        //the text file will contain information about multiple todolists
-        //the information in text file will be used to created multiple to do lists
-    }
+                writeFile.write(i.toString()+"\r\n");
+            }
 
-    @FXML
-    public void downloadAllListsButtonClicked(ActionEvent actionEvent) {
-        //on clicking this button a text file will be generated
-        //that text file will contain information about all the todolists
-        //that text file will be stored in file system
-        //user will be prompted to select the file location to store text file
-        // finally text file will be stored on file system
-    }
+            writeFile.close();
 
-    public void addNewToDoList() {
-        //this method will get values for adding to list from window controls
-        //then a new todolist object will be created
-        //that object will be added to arraylists of todolists
-    }
+            JOptionPane.showMessageDialog(null, "This list has been saved in your folder");
+        }
 
-    public void removeToDoList() {
-        //this method will search for todolist in arraylist of todolists
-        //if list found then it will delete the todolist from arraylist
-        //it will also disable todolist from window of todolists too
+        catch(Exception e){
+
+        }
     }
 
 
-    public void loadSingleToDoList() {
-        //user select a text file from external storage
-        //text file will be loaded into a todolist
+    public void loadSingleToDoList() throws FileNotFoundException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if(selectedFile!=null){
+            myList.clearAll();
+            Scanner fileScanner = new Scanner(selectedFile);
+            while(fileScanner.hasNext()){
+                String line = fileScanner.nextLine();
+                String[] lineParts = line.split(",");
+
+
+
+
+                myList.addTask(new Task(lineParts[0],lineParts[1],lineParts[2],lineParts[3]));
+
+            }
+
+            tableView.getItems().setAll(myList.getTasks());
+            capacityText.setText("Remaining Capacity: "+myList.getRemainingCapacity());
+
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Invalid File OR File not chosen");
+        }
     }
 
     @FXML
@@ -131,24 +150,28 @@ public class MainWindowControllers implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        //upon every loading file
+        //all the task available in file will be loaded each time program will run
+
         myList = new ToDoList("My List", 100);
 
-        try{
-            File inputFile = new File("files/emptyTable.txt");
+
+        try {
+            File inputFile = new File("list.txt");
             Scanner fileScanner = new Scanner(inputFile);
-            while(fileScanner.hasNext()) {
+            while(fileScanner.hasNext()){
                 String line = fileScanner.nextLine();
                 String[] lineParts = line.split(",");
+                myList.addTask(new Task(lineParts[0],lineParts[1],lineParts[2],lineParts[3]));
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } catch(Exception e){
+            System.out.println(e);
         }
 
-
-        taskName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        desc.setCellValueFactory(new PropertyValueFactory<>("description"));
-        dueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
-        complete.setCellValueFactory(new PropertyValueFactory<>("complete"));
+        taskName.setCellValueFactory(new PropertyValueFactory<Task, String>("name"));
+        desc.setCellValueFactory(new PropertyValueFactory<Task, String>("description"));
+        dueDate.setCellValueFactory(new PropertyValueFactory<Task, String>("dueDate"));
+        complete.setCellValueFactory(new PropertyValueFactory<Task, String>("complete"));
 
         tableView.getItems().setAll(myList.getTasks());
 
@@ -156,7 +179,88 @@ public class MainWindowControllers implements Initializable{
 
         addButton.setPickOnBounds(true);
 
+
+        taskName.setCellFactory(TextFieldTableCell.forTableColumn());
+        taskName.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Task, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Task, String> t) {
+                        t.getTableView().getItems().get(
+                                t.getTablePosition().getRow()).setName(t.getNewValue());
+
+                        Task temp = t.getTableView().getItems().get(
+                                t.getTablePosition().getRow());
+
+                        myList.updateName(temp, t.getNewValue());
+
+
+                    }
+                }
+        );
+
+        desc.setCellFactory(TextFieldTableCell.forTableColumn());
+        desc.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Task, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Task, String> t) {
+                        t.getTableView().getItems().get(
+                                t.getTablePosition().getRow()).setDescription(t.getNewValue());
+
+                        Task temp = t.getTableView().getItems().get(
+                                t.getTablePosition().getRow());
+
+                        myList.editDescription(temp, t.getNewValue());
+                    }
+                }
+        );
+
+        dueDate.setCellFactory(TextFieldTableCell.forTableColumn());
+        dueDate.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Task, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Task, String> t) {
+                        t.getTableView().getItems().get(
+                                t.getTablePosition().getRow()).setDueDate(t.getNewValue());
+
+                        Task temp = t.getTableView().getItems().get(
+                                t.getTablePosition().getRow());
+
+                        myList.editDueDate(temp, t.getNewValue());
+                    }
+                }
+        );
+
+        complete.setCellFactory(TextFieldTableCell.forTableColumn());
+        complete.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Task, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Task, String> t) {
+                        t.getTableView().getItems().get(
+                                t.getTablePosition().getRow()).setComplete(t.getNewValue());
+
+                        Task temp = t.getTableView().getItems().get(
+                                t.getTablePosition().getRow());
+
+
+
+                        myList.markAnItemComplete(temp, t.getNewValue());
+                    }
+                }
+        );
+
+
+
+
+
+
+
+
         addButton.setOnMouseClicked(new EventHandler() {
+
+            //this is an event on add button
+            //open a new window when add button is clciked
+
+
 
             @Override
             public void handle(Event event) {
@@ -189,104 +293,31 @@ public class MainWindowControllers implements Initializable{
 
         });
 
-
-        taskName.setCellFactory(TextFieldTableCell.forTableColumn());
-
-        taskName.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Task, String>>() {
-                    @Override
-                    public void handle(TableColumn.CellEditEvent<Task, String> t) {
-                        t.getTableView().getItems().get(
-                                t.getTablePosition().getRow()).setName(t.getNewValue());
-
-                        Task temp = t.getTableView().getItems().get(
-                                t.getTablePosition().getRow());
-
-                        myList.updateName(temp, t.getNewValue());
-                    }
-                }
-        );
-
-        desc.setCellFactory(TextFieldTableCell.forTableColumn());
-        desc.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Task, String>>() {
-                    @Override
-                    public void handle(TableColumn.CellEditEvent<Task, String> t) {
-                        ((Task) t.getTableView().getItems().get(
-                                t.getTablePosition().getRow())
-                        ).setDescription(t.getNewValue());
-
-                        Task temp = ((Task) t.getTableView().getItems().get(
-                                t.getTablePosition().getRow())
-                        );
-
-                        myList.editDescription(temp, t.getNewValue());
-                    }
-                }
-        );
-
-        dueDate.setCellFactory(TextFieldTableCell.forTableColumn());
-        dueDate.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Task, String>>() {
-                    @Override
-                    public void handle(TableColumn.CellEditEvent<Task, String> t) {
-                        ((Task) t.getTableView().getItems().get(
-                                t.getTablePosition().getRow())
-                        ).setDueDate(t.getNewValue());
-
-                        Task temp = ((Task) t.getTableView().getItems().get(
-                                t.getTablePosition().getRow())
-                        );
-
-                        myList.editDueDate(temp, t.getNewValue());
-                    }
-                }
-        );
-
-        complete.setCellFactory(TextFieldTableCell.forTableColumn());
-        complete.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Task, String>>() {
-                    @Override
-                    public void handle(TableColumn.CellEditEvent<Task, String> t) {
-                        ((Task) t.getTableView().getItems().get(
-                                t.getTablePosition().getRow())
-                        ).setComplete(t.getNewValue());
-
-                        Task temp = ((Task) t.getTableView().getItems().get(
-                                t.getTablePosition().getRow())
-                        );
+        minusButton.setOnMouseClicked(new EventHandler() {
 
 
+            //this is an event on minus button
+            //delete the selected item whenever it is clicked
 
-                        myList.markAnItemComplete(temp, t.getNewValue());
-                    }
-                }
-        );
+            @Override
+            public void handle(Event event) {
+                Task selectedItem = tableView.getSelectionModel().getSelectedItem();
+                tableView.getItems().remove(selectedItem);
+                myList.removeTask(selectedItem);
+
+                capacityText.setText("Remaining Capacity: "+myList.getRemainingCapacity());
+
+            }
 
 
 
 
-
-
-
-
-
-
-//        minusButton.setOnMouseClicked(new EventHandler() {
-//
-//            @Override
-//            public void handle(Event event) {
-//                Task selectedItem = tableView.getSelectionModel().getSelectedItem();
-//                tableView.getItems().remove(selectedItem);
-//                myList.removeItem(selectedItem);
-//
-//                capacityText.setText("Remaining Capacity: "+myList.getRemainingCapacity());
-//
-//            }
-//
-//
-//
-//
-//        });
+        });
     }
+
+    public static ArrayList<Task> allTasks(){
+        return myList.getTasks();
+    }
+
+
 }
