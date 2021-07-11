@@ -2,93 +2,140 @@ package ucf.assignments;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ToDoListTest {
 
+    //initialize todolist
+    ToDoList myList = new ToDoList("My List",100);
+
+    private void loadItems() throws FileNotFoundException {
+        // get all the tasks from 'testdata.txt' file and adding them to todolist one by one
+        File inputFile = new File("files/testdata.txt");
+        Scanner fileScanner = new Scanner(inputFile);
+        while(fileScanner.hasNext()){
+            String line = fileScanner.nextLine();
+            String[] lineParts = line.split(",");
+            myList.addItem(new Item(lineParts[0],lineParts[1],lineParts[2],lineParts[3]));
+        }
+    }
+
     @Test
-    void getTitle() {
-        //set expected string value
-        //create ToDoList object
+    void getTitle() throws FileNotFoundException {
+        //call loadItems function
+        loadItems();
+        assertEquals("My List",myList.getTitle()); //assert equals title
+    }
+
+    @Test
+    void setTitle() throws FileNotFoundException {
+        //call loadItems function
+        //set myList title "My List New Name"
+        //assert equals title
+    }
+
+    @Test
+    void getRemainingCapacity() throws FileNotFoundException {
+        //call loadItems function
+        //assert equals capacity
+    }
+
+    @Test
+    void setCapacity() throws FileNotFoundException {
+        //call loadItems function
+        //set myList capacity to 150
+        //assert equals capacity
+    }
+
+    @Test
+    void editTitle() throws FileNotFoundException {
+        //call loadItems function
+        //create new title
+        //asserts equals title
+
+    }
+
+    @Test
+    void addItem() throws FileNotFoundException {
+        //call loadItems function
+        //create Item temp variable
+        //add temp in myList
+        //assert equals
+
+    }
+
+    @Test
+    void removeItem() throws FileNotFoundException {
+        //call loadItems function
+        //create Item temp variable
+        //add temp in myList
+        //create variable to get remaining capacity before delete
+        //remove temp in myList
+        //create variable to get remaining capacity after delete
         //assert equals
     }
 
     @Test
-    void getCapacity() {
-        //set expected int value
-        //create ToDoList object
+    void updateName() throws FileNotFoundException {
+        //call loadItems function
+        //create Item temp variable
+        //update name in myList
         //assert equals
     }
 
     @Test
-    void setTitle() {
-        //set expected string value
-        //create ToDoList object
-        //set ToDoList object title
+    void editDescription() throws FileNotFoundException {
+        //call loadItems function
+        //create Item temp variable
+        //edit description in myList
         //assert equals
     }
 
     @Test
-    void setCapacity() {
-        //set expected int value
-        //create ToDoList object
-        //set ToDoList object capacity
-        //assert equals
-    }
-
-    @Test
-    void editTitle() {
-        //change the title of a todolist
-        //assert with new title
-    }
-
-    @Test
-    void addItem() {
-        //add a item to a list
-        //call 'getCount'
-        //assert if count increased
-        //check if item is added
-    }
-
-    @Test
-    void removeItem() {
-        //call removeItem() method and remove an item from list
-        //call 'getCount'
-        //assert if count decreased
-        //check if item is removed
-    }
-
-    @Test
-    void editDescription() {
-        //set expected description string
-        //create item object
-        //create description string
-        //call 'editDescription' method and pass the item object and description string
-        //assert equals
-    }
-
-    @Test
-    void editDueDate() {
-        //set expected due date string
-        //create item object
-        //create due date string
-        //call 'editDueDate' method and pass the item object and due date string
+    void editDueDate() throws FileNotFoundException {
+        //call loadItems function
+        //create Item temp variable
+        //edit due date in myList
         //assert equals
     }
 
     @Test
     void markAnItemComplete() {
-        //set expected boolean value
-        //create item object
-        //call 'markAnItemComplete' method and pass the item object
+        //call loadItems function
+        //create Item temp variable
+        //edit status od the task in myList
         //assert equals
     }
 
     @Test
     void getItems() {
-        //set expected items
-        //create ToDoList object
+        //call loadItems function
+        //get all items from myList
         //assert equals
     }
 
+    @Test
+    void getCompleteItems() {
+        //call loadItems function
+        //get complete items from myList
+        //assert equals
+    }
+
+    @Test
+    void getIncompleteItems() {
+        //call loadItems function
+        //get incomplete items from myList
+        //assert equals
+    }
+
+    @Test
+    void clearAll() {
+        //call loadItems function
+        //clear all myList tasks
+        //assert equals
+    }
 }
