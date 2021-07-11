@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="352.0" prefWidth="606.0" style="-fx-background-color: #cbae82#cbae82;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.AddTaskWindowControllers">
+<AnchorPane prefHeight="352.0" prefWidth="606.0" style="-fx-background-color: #8aacc8;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.AddTaskWindowControllers">
    <children>
-      <ListView editable="true" layoutY="42.0" prefHeight="352.0" prefWidth="606.0" style="-fx-background-color: #ffffe4#ffffe4;" />
+      <ListView editable="true" layoutY="42.0" prefHeight="352.0" prefWidth="606.0" style="-fx-background-color: #ffffff;" />
       <Label layoutX="14.0" layoutY="12.0" text="Add New Task" textFill="WHITE">
          <font>
             <Font name="System Bold" size="25.0" />

@@ -1,12 +1,8 @@
-/*
- *  UCF COP3330 Summer 2021 Assignment 4 Solution
- *  Copyright 2021 Melissa Cabrera
- */
-
 package ucf.assignments;
 
 
-public class Task {
+
+public class Item {
 
     private String description;
     private String dueDate;
@@ -15,7 +11,7 @@ public class Task {
 
     String name;
 
-    public Task(String name, String description, String dueDate, String isComplete) {
+    public Item(String name, String description, String dueDate, String isComplete) {
         this.name = name;
         this.description = description;
         this.dueDate = dueDate; // format as shared
@@ -65,5 +61,4 @@ public class Task {
     public String toString(){
         return this.name+","+this.description+","+this.dueDate+","+this.complete;
     }
-
 }

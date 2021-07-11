@@ -1,3 +1,0 @@
-task 1,pay car,2021-07-22,incomplete
-task 2,pay water,2021-07-16,incomplete
-task,de,2021-07-15,incomplete
