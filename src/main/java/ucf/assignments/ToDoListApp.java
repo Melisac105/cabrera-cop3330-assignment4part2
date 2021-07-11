@@ -32,6 +32,7 @@ public class ToDoListApp extends Application {
 
             primaryStage.setScene(scene);
             primaryStage.setTitle("MainWindow");
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -40,32 +41,18 @@ public class ToDoListApp extends Application {
 
     @Override
     public void stop(){
-
-
         //get all tasks from Main Controller class
         //write all tasks to file
         //as the data and changes should be saved
-
-
-
         try{
             FileWriter writeFile = new FileWriter("files/data.txt");
             for(Item i : MainWindowControllers.getTasks()){
-
                 writeFile.write(i.toString()+"\r\n");
             }
-
             System.out.println("Data Written");
-
             writeFile.close();
-
-
+        } catch(Exception e) {
+            System.out.println("Data Exception"+e);
         }
-
-        catch(Exception e){
-            System.out.println("Data Exception"+e); //where is text file to store data?
-            //are you there?
-        }
-
     }
 }

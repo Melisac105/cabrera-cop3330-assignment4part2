@@ -91,11 +91,11 @@ public class MainWindowControllers implements Initializable{
     public void clearAll() {
         //this method will clear all items from the todolist
         myList.clearAll(); //clear all items
-        tableView.getItems().setAll(myList.getItems());
+        tableView.getItems().setAll(myList.getItems()); //set table empty in GUI
         capacityText.setText("Remaining Capacity: " + myList.getRemainingCapacity()); //get new remaining capacity
     }
 
-    
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -117,10 +117,10 @@ public class MainWindowControllers implements Initializable{
         }
 
         // setting all the tasks from the todolist to the tableView of the screen
-        taskName.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
-        desc.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
-        dueDate.setCellValueFactory(new PropertyValueFactory<Item, String>("dueDate"));
-        complete.setCellValueFactory(new PropertyValueFactory<Item, String>("complete"));
+        taskName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        desc.setCellValueFactory(new PropertyValueFactory<>("description"));
+        dueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
+        complete.setCellValueFactory(new PropertyValueFactory<>("complete"));
 
         tableView.getItems().setAll(myList.getItems());
 
@@ -135,10 +135,10 @@ public class MainWindowControllers implements Initializable{
                     @Override
                     public void handle(TableColumn.CellEditEvent<Item, String> t) {
                         // setting new name to the selected cell in the taskName column
-                        ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
+                        ( t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
 
                         // getting that item from the table into Item object
-                        Item temp = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+                        Item temp = ( t.getTableView().getItems().get(t.getTablePosition().getRow()));
 
                         myList.updateName(temp, t.getNewValue()); // updating that item's new name into todolist
                     }
@@ -152,10 +152,10 @@ public class MainWindowControllers implements Initializable{
                     @Override
                     public void handle(TableColumn.CellEditEvent<Item, String> t) {
                         // setting new description to the selected cell in the description column
-                        ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow())).setDescription(t.getNewValue());
+                        ( t.getTableView().getItems().get(t.getTablePosition().getRow())).setDescription(t.getNewValue());
 
                         // getting that item from the table into Item object
-                        Item temp = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+                        Item temp = ( t.getTableView().getItems().get(t.getTablePosition().getRow()));
 
                         myList.editDescription(temp, t.getNewValue()); // updating that item's new description into todolist
                     }
@@ -169,10 +169,10 @@ public class MainWindowControllers implements Initializable{
                     @Override
                     public void handle(TableColumn.CellEditEvent<Item, String> t) {
                         // setting new dueDate to the selected cell in the description column
-                        ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow())).setDueDate(t.getNewValue());
+                        ( t.getTableView().getItems().get(t.getTablePosition().getRow())).setDueDate(t.getNewValue());
 
                         // getting that item from the table into Item object
-                        Item temp = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+                        Item temp = ( t.getTableView().getItems().get(t.getTablePosition().getRow()));
 
                         myList.editDueDate(temp, t.getNewValue()); // updating that item's new dueDate into todolist
                     }
@@ -186,10 +186,10 @@ public class MainWindowControllers implements Initializable{
                     @Override
                     public void handle(TableColumn.CellEditEvent<Item, String> t) {
                         // setting new complete to the selected cell in the description column
-                        ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow())).setComplete(t.getNewValue());
+                        ( t.getTableView().getItems().get(t.getTablePosition().getRow())).setComplete(t.getNewValue());
 
                         // getting that item from the table into Item object
-                        Item temp = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+                        Item temp = ( t.getTableView().getItems().get(t.getTablePosition().getRow()));
 
                         myList.markAnItemComplete(temp, t.getNewValue()); // updating that item's new complete into todolist
                     }
@@ -218,6 +218,7 @@ public class MainWindowControllers implements Initializable{
                     Stage stage = new Stage();
                     stage.setScene(scene);
 
+                    stage.setResizable(false);
                     Stage stagePrevious = (Stage) addButton.getScene().getWindow();
                     stagePrevious.close();
                     stage.show();
@@ -251,10 +252,18 @@ public class MainWindowControllers implements Initializable{
 
             @Override
             public void handle(Event event) {
+                // file chooser object is created
                 FileChooser fileChooser = new FileChooser();
+
+                // set title for file chooser dialog
                 fileChooser.setTitle("Open Resource File");
+
+                // show file chooser dialog on screen to select a file and assigning selected file to the File object
                 File selectedFile = fileChooser.showOpenDialog(null);
 
+                // if user has selected any file then it will clear existing todolist first and then add all the tasks from the file into that todolist one by one using a loop
+                // finally it will show all the items in the tableview and update the Remaining capacity of the todolist
+                // else show a message dialog box with a message.
                 if (selectedFile != null) {
                     myList.clearAll();
                     Scanner fileScanner = null;
@@ -281,10 +290,19 @@ public class MainWindowControllers implements Initializable{
 
             @Override
             public void handle(Event event) {
+                // create object of DirectoryChooser
                 DirectoryChooser directoryChooser = new DirectoryChooser();
+
+                // set the title
                 directoryChooser.setTitle("Choose a folder to save file");
+
+                // call showDialog method of directoryChooser to show it on screen
+                // File object will get selected directory from directoryChooser dialog
                 File file = directoryChooser.showDialog(null);
                 System.out.println(file);
+
+                // file writer will write all the todotasks to the 'todolistdownloaded.txt' file in the selected directory
+                //show a message dialog box when all the tasks will have been saved into the file
                 try{
                     FileWriter writeFile = new FileWriter(file.toString()+"\\ListDownloaded.txt");
                     for(Item i : myList.getItems()){

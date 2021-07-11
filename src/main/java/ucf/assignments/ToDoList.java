@@ -16,7 +16,7 @@ public class ToDoList {
         this.title = title;
         this.capacity = capacity;
         count = 0; //set count = 0
-        items = new ArrayList<Item>(); //make a new list for items
+        items = new ArrayList<>(); //make a new list for items
     }
 
     public String getTitle() {
@@ -50,7 +50,7 @@ public class ToDoList {
     }
 
     public void updateName(Item i, String str){
-        int index=0;
+        int index;
         //loop to find task from the list and record the index for passed task
         for(index = 0; index<count; index++){
             //if name are the same, then break
@@ -62,7 +62,7 @@ public class ToDoList {
     }
 
     public void editDescription(Item i, String str){
-        int index=0;
+        int index;
         //loop to find task from the list and record the index for passed task
         for(index = 0; index<count; index++){
             //if descriptions are the same, then break
@@ -74,7 +74,7 @@ public class ToDoList {
     }
 
     public void editDueDate(Item i , String str){
-        int index=0;
+        int index;
         //loop to find task from the list and record the index for passed task
         for(index = 0; index<count; index++){
             //if dates are the same, then break
@@ -86,7 +86,7 @@ public class ToDoList {
     }
 
     public void markAnItemComplete(Item i, String str){
-        int index=0;
+        int index;
         //loop to find task from the list and record the index for passed task
         for(index = 0; index<count; index++){
             //if status are the same, then break
@@ -105,7 +105,7 @@ public class ToDoList {
 
     public ArrayList<Item> getCompleteItems(){
         //get all items in list
-        ArrayList<Item> completed = new ArrayList<Item>(); //make a temp new list
+        ArrayList<Item> completed = new ArrayList<>(); //make a temp new list
         //loop for all items
         for(Item i : getItems()){
             //if complete then add into list
@@ -118,7 +118,7 @@ public class ToDoList {
 
     public ArrayList<Item> getIncompleteItems(){
         //get all items in list
-        ArrayList<Item> incomplete = new ArrayList<Item>(); //make a temp new list
+        ArrayList<Item> incomplete = new ArrayList<>(); //make a temp new list
         //loop for all items
         for(Item i : getItems()){
             //if incomplete then add into list
@@ -132,7 +132,7 @@ public class ToDoList {
     public void clearAll(){
         //make new objects for items
         //previous all will be deleted
-        items = new ArrayList<Item>();
+        items = new ArrayList<>();
         count = 0; //set counter equal to zero
     }
 }

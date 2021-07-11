@@ -1,6 +1,5 @@
 package ucf.assignments;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,7 +33,7 @@ public class AddTaskWindowControllers implements Initializable {
 
 
     @FXML
-    public void submitTask(ActionEvent actionEvent) {
+    public void submitTask() {
 
         // this method will be called on clicking submit button
         String name = taskName.getText(); // get Task Name
