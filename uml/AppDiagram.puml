@@ -4,78 +4,97 @@
 class ToDoListApp {
     + main()
     + start()
+    + stop()
 }
 
 class MainWindowControllers {
-    + listName : TextField
+    - myList: ToDoList
 
-    + addListButtonClicked()
-    + deleteListButtonClicked()
-    + uploadListsButtonClicked()
-    + downloadAllListsButtonClicked()
-    + addNewToDoList()
-    + removeToDoList()
-    + saveAllToDoLists()
-    + loadSingleToDoList()
-    + loadMultipleToDoLists()
-}
+    tableView: TableView<Item> <<FXML>>
+    taskName: TableColumn<Item, String> <<FXML>>
+    desc: TableColumn<Item, String> <<FXML>>
+    dueDate: TableColumn<Item, String> <<FXML>>
+    complete: TableColumn<Item, String> <<FXML>>
 
-class ListWindowControllers {
-    + listName : TextField
-    + taskName : TextField
-    + taskDescription : TextField
+    capacityText: Label <<FXML>>
 
-    + showAllButtonClicked()
-    + showCompleteItemsButtonClicked()
-    + showIncompleteItemsButtonClicked()
-    + downloadSingleListButtonClicked()
-    + addItemButtonClicked()
-    + doneButtonClicked()
-    + deleteItemButtonClicked()
-    + displayAllItems()Up
+    showAll: MenuItem <<FXML>>
+    showComplete: MenuItem <<FXML>>
+    showIncomplete: MenuItem <<FXML>>
+
+    addButton: ImageView <<FXML>>
+    minusButton: ImageView <<FXML>>
+    fileUpload: ImageView <<FXML>>
+    fileDownload: ImageView <<FXML>>
+
+    + displayAllItems()
     + displayIncompleteItems()
     + displayCompleteItems()
-    + saveAllItemsSingleToDoList()
+    + clearAll()
+    + initialize()
+    + getTasks()
+}
+
+class AddTaskWindowControllers {
+    datePicker: DatePicker <<FXML>>
+    taskName: TextField <<FXML>>
+    desc: TextArea <<FXML>>
+    submit: Button <<FXML>>
+
+    + submitTask()
+    + initialize()
 }
 
 class Item {
     - description : String
     - dueDate : String
-    - isComplete : boolean
+    - complete : String
+    name: String
 
+    + Item()
     + getDescription()
     + setDescription()
     + getDueDate()
     + setDueDate()
     + isComplete()
     + setComplete()
+    + getName()
+    + setName()
+    + toString()
 }
 
 class ToDoList {
     - title : String
     - capacity : int
     + count : int
-    + items : ArrayList<>
+    + items : ArrayList<Item>
 
-    + toDoList()
+    + ToDoList()
     + getTitle()
-    + getCapacity()
+    + getRemainingCapacity()
     + setTitle()
     + setCapacity()
     + editTitle()
     + addItem()
     + removeItem()
+    + updateName()
     + editDescription()
     + editDueDate()
     + markAnItemComplete()
     + getItems()
+    + getCompleteItems()
+    + getIncompleteItems()
+    + clearAll()
 }
 
 javafx.Application <|-- ToDoListApp
 
-ToDoListApp <-- ListWindowControllers
 ToDoListApp <- MainWindowControllers
-ToDoList <- Item
-ListWindowControllers <-- ToDoList
+ToDoListApp --> Item
+AddTaskWindowControllers --> Item
+AddTaskWindowControllers --> MainWindowControllers
+MainWindowControllers --> Item
+MainWindowControllers -> ToDoList
+ToDoList --> Item
 
 @enduml

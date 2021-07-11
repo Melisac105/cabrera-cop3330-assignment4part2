@@ -224,10 +224,6 @@ public class MainWindowControllers implements Initializable{
                     stage.show();
                 }
             }
-
-
-
-
         });
 
         //this is an event on minus button
