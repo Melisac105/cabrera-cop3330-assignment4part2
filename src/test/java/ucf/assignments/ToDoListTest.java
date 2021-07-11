@@ -46,9 +46,9 @@ class ToDoListTest {
 
     @Test
     void setCapacity() throws FileNotFoundException {
-        //call loadItems function
-        //set myList capacity to 150
-        //assert equals capacity
+        loadItems(); //call loadItems function
+        myList.setCapacity(150); //set myList capacity to 150
+        assertEquals(146, myList.getRemainingCapacity()); //assert equals capacity
     }
 
     @Test
