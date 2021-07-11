@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -97,53 +98,53 @@ class ToDoListTest {
 
     @Test
     void editDescription() throws FileNotFoundException {
-        //call loadItems function
-        //create Item temp variable
-        //edit description in myList
-        //assert equals
+        loadItems(); //call loadItems function
+        Item temp = myList.getItems().get(0); //create Item temp variable
+        myList.editDescription(temp,"test"); //edit description in myList
+        assertEquals("test",myList.getItems().get(0).getDescription()); //assert equals
     }
 
     @Test
     void editDueDate() throws FileNotFoundException {
-        //call loadItems function
-        //create Item temp variable
-        //edit due date in myList
-        //assert equals
+        loadItems(); //call loadItems function
+        Item temp = myList.getItems().get(0); //create Item temp variable
+        myList.editDueDate(temp,"2020-12-11"); //edit due date in myList
+        assertEquals("2020-12-11",myList.getItems().get(0).getDueDate()); //assert equals
     }
 
     @Test
-    void markAnItemComplete() {
-        //call loadItems function
-        //create Item temp variable
-        //edit status od the task in myList
-        //assert equals
+    void markAnItemComplete() throws FileNotFoundException {
+        loadItems(); //call loadItems function
+        Item temp = myList.getItems().get(0); //create Item temp variable
+        myList.markAnItemComplete(temp,"complete"); //edit status od the task in myList
+        assertEquals("complete",myList.getItems().get(0).isComplete()); //assert equals
     }
 
     @Test
-    void getItems() {
-        //call loadItems function
-        //get all items from myList
-        //assert equals
+    void getItems() throws FileNotFoundException {
+        loadItems(); //call loadItems function
+        ArrayList<Item> items = myList.getItems(); //get all items from myList
+        assertEquals(4, items.size()); //assert equals
     }
 
     @Test
-    void getCompleteItems() {
-        //call loadItems function
-        //get complete items from myList
-        //assert equals
+    void getCompleteItems() throws FileNotFoundException {
+        loadItems(); //call loadItems function
+        ArrayList<Item> items = myList.getCompleteItems(); //get complete items from myList
+        assertEquals(2, items.size()); //assert equals
     }
 
     @Test
-    void getIncompleteItems() {
-        //call loadItems function
-        //get incomplete items from myList
-        //assert equals
+    void getIncompleteItems() throws FileNotFoundException {
+        loadItems(); //call loadItems function
+        ArrayList<Item> items = myList.getIncompleteItems(); //get incomplete items from myList
+        assertEquals(2, items.size()); //assert equals
     }
 
     @Test
-    void clearAll() {
-        //call loadItems function
-        //clear all myList tasks
-        //assert equals
+    void clearAll() throws FileNotFoundException {
+        loadItems(); //call loadItems function
+        myList.clearAll(); //clear all myList tasks
+        assertEquals(0, myList.getItems().size()); //assert equals
     }
 }

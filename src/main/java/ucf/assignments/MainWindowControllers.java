@@ -204,7 +204,7 @@ public class MainWindowControllers implements Initializable{
                 //open a new window when add button is clicked
                 // if the remaining capacity of the todolist is 0 then it will just show a message dialog box to the user with a message
                 if (myList.getRemainingCapacity() <= 0) {
-                    JOptionPane.showMessageDialog(null, "The list is full, delete some item");
+                    new Alert(Alert.AlertType.INFORMATION, "The list is full, delete some item").show();
                 } else {
                     // otherwise load a new screen using fxml loader that's AddTaskWindow.fxml to add new task
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ucf/assignments/AddTaskWindow.fxml"));
@@ -277,7 +277,7 @@ public class MainWindowControllers implements Initializable{
                     tableView.getItems().setAll(myList.getItems());
                     capacityText.setText("Remaining Capacity: " + myList.getRemainingCapacity());
                 } else {
-                    JOptionPane.showMessageDialog(null, "Invalid File OR File not chosen");
+                    new Alert(Alert.AlertType.INFORMATION, "Invalid File OR File not chosen").show();
                 }
             }
         });
@@ -304,8 +304,9 @@ public class MainWindowControllers implements Initializable{
                     for(Item i : myList.getItems()){
                         writeFile.write(i.toString()+"\r\n");
                     }
+                    writeFile.flush();
                     writeFile.close();
-                    JOptionPane.showMessageDialog(null, "This list has been saved in your folder");
+                    new Alert(Alert.AlertType.INFORMATION, "This list has been saved in your folder").show();
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
