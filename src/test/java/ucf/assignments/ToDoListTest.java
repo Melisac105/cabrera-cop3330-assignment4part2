@@ -89,10 +89,10 @@ class ToDoListTest {
 
     @Test
     void updateName() throws FileNotFoundException {
-        //call loadItems function
-        //create Item temp variable
-        //update name in myList
-        //assert equals
+        loadItems();//call loadItems function
+        Item temp = myList.getItems().get(0); //create Item temp variable
+        myList.updateName(temp,"test"); //update name in myList
+        assertEquals("test",myList.getItems().get(0).getName()); //assert equals
     }
 
     @Test
