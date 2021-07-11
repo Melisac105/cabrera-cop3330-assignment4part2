@@ -53,9 +53,9 @@ class ToDoListTest {
 
     @Test
     void editTitle() throws FileNotFoundException {
-        //call loadItems function
-        //create new title
-        //asserts equals title
+        loadItems(); //call loadItems function
+        myList.editTitle("This is new title"); //create new title
+        assertEquals("This is new title", myList.getTitle()); //asserts equals title
 
     }
 
