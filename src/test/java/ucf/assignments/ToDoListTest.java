@@ -61,22 +61,30 @@ class ToDoListTest {
 
     @Test
     void addItem() throws FileNotFoundException {
-        //call loadItems function
-        //create Item temp variable
-        //add temp in myList
-        //assert equals
+        loadItems(); //call loadItems function
 
+        //create Item temp variable
+        Item temp = new Item("item", "description", "2021-04-06", "incomplete");
+        myList.addItem(temp); //add temp in myList
+        assertEquals(temp, myList.getItems().get(myList.count-1)); //assert equals
     }
 
     @Test
     void removeItem() throws FileNotFoundException {
-        //call loadItems function
+        loadItems(); //call loadItems function
+
         //create Item temp variable
-        //add temp in myList
+        Item temp = new Item("item", "description", "2021-04-06", "incomplete");
+        myList.addItem(temp); //add temp in myList
+
         //create variable to get remaining capacity before delete
-        //remove temp in myList
+        int capacityBeforeDelete = myList.getRemainingCapacity();
+
+        myList.removeItem(temp); //remove temp in myList
+
         //create variable to get remaining capacity after delete
-        //assert equals
+        int capacityAfterDelete = myList.getRemainingCapacity();
+        assertEquals(capacityBeforeDelete,capacityAfterDelete-1); //assert equals
     }
 
     @Test
