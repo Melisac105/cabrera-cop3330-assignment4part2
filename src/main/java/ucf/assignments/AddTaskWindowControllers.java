@@ -50,7 +50,6 @@ public class AddTaskWindowControllers implements Initializable {
         //if statement to check if description has more than 256 characters
         if(description.length()>256){
             JOptionPane.showMessageDialog(null, "Description is more than 256 characters","Description", JOptionPane.ERROR_MESSAGE);
-//            System.out.println("Error 256");
             return;
         }
 
@@ -76,7 +75,6 @@ public class AddTaskWindowControllers implements Initializable {
         Parent root = null;
         try {
             root = fxmlLoader.load();
-            //it will open main window again, that one is supposed to open main window, let me try something
         } catch (IOException e) {
             e.printStackTrace();
         }
