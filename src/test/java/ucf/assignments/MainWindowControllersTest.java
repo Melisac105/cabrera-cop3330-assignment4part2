@@ -2,49 +2,49 @@ package ucf.assignments;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class MainWindowControllersTest {
 
-    @Test
-    void addNewToDoList() {
-        //set expected ToDoList object
-        //call 'addNewToDoList' method
-        //check if ToDoList object exists
-        //call 'fail' if object does not exist
+    ToDoList myList = new ToDoList("My List",100); //initialize todolist
+
+    private void loadItems() throws FileNotFoundException {
+        // get all the tasks from 'testdata.txt' file and adding them to todolist one by one
+        File inputFile = new File("files/testdata.txt");
+        Scanner fileScanner = new Scanner(inputFile);
+        while (fileScanner.hasNext()) {
+            String line = fileScanner.nextLine();
+            String[] lineParts = line.split(",");
+            myList.addItem(new Item(lineParts[0], lineParts[1], lineParts[2], lineParts[3]));
+        }
     }
 
     @Test
-    void removeToDoList() {
-        //set expected ToDoList object
-        //call 'removeToDoList' method
-        //check if ToDoList object still exists
-        //call 'fail' if object still exists
+    void displayAllItems() throws FileNotFoundException {
+        loadItems(); //call loadItems function
+        assertEquals(4,myList.count); //assert equals using myList
     }
 
     @Test
-    void saveAllToDoLists() {
-        //call saveAllToDoLists method
-        //this method will loop through all the todolists
-        //it will create text files for each to do list
-        //then it will store all the todolists on storage
-        //assert if files exist
+    void displayIncompleteItems() throws FileNotFoundException {
+        loadItems(); //call loadItems function
+        assertEquals(2, myList.getIncompleteItems().size()); //assert equals using myList
     }
 
     @Test
-    void loadSingleToDoList() {
-        //call loadSingleToDoList method
-        //through this method a to do list will be loaded
-        //user will select a text file from external storage
-        //then the text file wil be loaded into a todolist
-        //assert if size of arraylist is same as of file
+    void displayCompleteItems() throws FileNotFoundException {
+        loadItems(); //call loadItems function
+        assertEquals(2, myList.getCompleteItems().size()); //assert equals using myList
     }
 
     @Test
-    void loadMultipleToDoLists() {
-        //call loadSingleToDoList method
-        //through this method multiple to do lists will be loaded
-        //user will select multiple text files from external storage
-        //then the text files wil be loaded into a todolists
-        //assert if size of arraylist is same as of no of files
+    void clearAll() throws FileNotFoundException {
+        loadItems(); //call loadItems function
+        myList.clearAll(); //clear list
+        assertEquals(0, myList.getItems().size()); //assert equals using myList
     }
 }
