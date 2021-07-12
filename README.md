@@ -1,0 +1,20 @@
+# cabrera-cop3330-assignment4part2
+
+This project is dedicated to Rey!
+
+Application Instructions
+
+This app has two windows: the main window is where all tasks are display and the second window only pops up when the user click in add new task
+
+Main Window options:
+       - Add Button (:heavy_plus_sign:) => This button is to add a task, it will pop up a new window where you have to fill the task name field, description field, select due date
+       - Minus Button (:heavy_minus_sign:) => This button is to remove a task, you have to select a task and then click the remove button
+       - Clear Button => This button will delete all the tasks in the todo list
+       - Show Button => This button has 3 options: 
+              - All => This option will show all tasks
+              - Complete => This option will show only the complete tasks
+              - Incomplete => This option will show only the incomplete tasks
+       - Upload Button (first left bottom icon) => This button is to upload an existing list. A file chooser will open to select the list
+       - Download Button (second left botton icon) => This button is to download the list. Select the folder where you want to save the file and click open.
+                                                      An alert window will pop up with the message "This list has been saved in your folder" 
+           
